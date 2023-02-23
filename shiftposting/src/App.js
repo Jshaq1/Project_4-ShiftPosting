@@ -5,12 +5,12 @@ import Signup from './Signup';
 
 function App() {
   return (
-    <AuthProvider>
+    
       <div className="App">
         <Dashboard></Dashboard>
         <Signup></Signup>
       </div>
-    </AuthProvider>
+
 
   );
 }
