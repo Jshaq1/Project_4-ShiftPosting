@@ -1,111 +1,113 @@
 import FormControl from '@mui/material/FormControl';
 import { TextField } from '@mui/material';
-import { useState } from 'react';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import InputAdornment from '@mui/material/InputAdornment';
 
 export default function CommsCalc(props) {
-  const [ticket, setticket] = useState()
-  const [staff, setstaff] = useState()
-  const [sale, setsale] = useState()
-  const [comms, setcomms] = useState()
-  const [name, setname] = useState()
-  const [sku, setsku] = useState()
-  const [order, setorder] = useState()
-  const [answer, setanswer] = useState()
-  
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    let x = (ticket - staff)
-    let y = (sale - staff)
-    let percent = (y / x)
-    let calcAnswer = (comms * percent)
-    setanswer(calcAnswer)
-
-    let comissionObj = {
-      'ticket': ticket,
-      'staff': staff,
-      'sale': sale,
-      'comms': comms,
-      'name': name,
-      'sku': sku,
-      'order': order,
-      'answer': answer,
-    }
-
-    props.onSubmit(comissionObj)
+    props.onSubmit()
   }
 
 
 
   return <div className='commsCalc' >
-
+<Card sx={{ minWidth: 275 }}>
     <form  className='calculator-form' onSubmit={handleSubmit}>
       <FormControl >
         <div className='sale-details'>
           <h3> Sale Details</h3>
           <TextField
           required
-          id="outlined-required"
-          label="SKU"
-          value={sku} onChange={(e) => setsku(e.target.value)}
-          size='small'
-          margin='dense'
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="ITEM NAME"
-          value={name} onChange={(e) => setname(e.target.value)}
-          size='small'
-          margin='dense'
-        />
-        <TextField
-          required
-          id="outlined-required"
+          id="ORDER"
           label="ORDER#"
-          value={order} onChange={(e) => setorder(e.target.value)}
+          value={props.order || ''} 
+          onChange={props.onChange}
           size='small'
           margin='dense'
-        /></div>
+        />
+          <TextField
+          required
+          id="SKU"
+          label="SKU"
+          type="number"
+          value={props.sku || ''} 
+          onChange={props.onChange}
+          size='small'
+          margin='dense'
+        />
+        <TextField
+          required
+          id="NAME"
+          label="ITEM NAME"
+          value={props.name || ''} 
+          onChange={props.onChange}
+          size='small'
+          margin='dense'
+        />
+        </div>
       <div className='pricing-details'>
       <h3>Pricing Details</h3>
          <TextField
           required
-          id="outlined-required"
+          id="TICKET"
           label="TICKET"
-          value={ticket} onChange={(e) => setticket(e.target.value)}
+          type="number"
+          value={props.ticket || ''} 
+          onChange={props.onChange}
           size='small'
           margin='dense'
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
         />
         <TextField
           required
-          id="outlined-required"
+          id="STAFF"
           label="STAFF"
-          value={staff} onChange={(e) => setstaff(e.target.value)}
+          type="number"
+          value={props.staff || ''} 
+          onChange={props.onChange}
           size='small'
           margin='dense'
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
         />
         <TextField
           required
-          id="outlined-required"
+          id="SALE"
           label="SALE PRICE"
-          value={sale} onChange={(e) => setsale(e.target.value)}
+          type="number"
+          value={props.sale || ''} 
+          onChange={props.onChange}
           size='small'
           margin='dense'
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
         />
         <TextField
           required
-          id="outlined-required"
+          id="COMMS"
           label="COMISSION"
-          value={comms} onChange={(e) => setcomms(e.target.value)}
+          type="number"
+          value={props.comms || ''} 
+          onChange={props.onChange}
           size='small'
           margin='dense'
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
         /></div>
         
 
-        <input type={'submit'}></input>
+        <Button type='submit' size="small">Submit</Button>
       </FormControl>
     </form>
+    </Card>
 
   </div>
 }
