@@ -1,73 +1,81 @@
 import React from 'react'
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { TextField } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
-import { useRef } from 'react';
-import {useAuth} from './Auth'
+import { auth } from './firebase';
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react';
 
-export default function Signup(){
 
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const passWordConfirmRef = useRef()
-    const { signup, currentUser } = useAuth()
+
+
+export default function Signup() {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
 
-    async function handleSubmit(e) {
-        e.preventDefault()
-        if(passwordRef.current.value !== passWordConfirmRef.current.value){
-            return setError('Passwords do not match')
+
+    const validatePassword = () => {
+        let isValid = true
+        if (password !== '' && confirmPassword !== '') {
+            if (password !== confirmPassword) {
+                isValid = false
+                setError('Passwords does not match')
+            }
         }
-        try {
-            await signup(emailRef.current.value, passwordRef.current.value)
-        }catch {
-            setError('Failed to create a user')
-        }
-        
+        return isValid
     }
 
 
-    return(
-    <div>
-        {currentUser}
-        <form onSubmit={handleSubmit}>
-        <FormControl>
-        <Card sx={{ minWidth: 275 }}>
-        <CardContent>
-        <TextField
-          required
-          id="email"
-          label="email"
-        //   value={} 
-        //   onChange={}
-          size='small'
-          margin='dense'
-        />
-        <TextField
-          required
-          id="password"
-          label="password"
-        //   value={} 
-        //   onChange={}
-          size='small'
-          margin='dense'
-        />
-        <TextField
-          required
-          id="password-confirm"
-          label="password-confirm"
-        //   value={} 
-        //   onChange={}
-          size='small'
-          margin='dense'
-        />
-        </CardContent>
-        </Card>
-        </FormControl>
-        <button type='submit'>Signup</button>
-        </form>
-    </div>
-    )
-}
+    const register = e => {
+        e.preventDefault()
+        setError('')
+        if (validatePassword()) {
+            // Create a new user with email and password using firebase
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((res) => {
+                    console.log(res.user)
+                })
+                .catch(err => setError(err.message))
+        }
+        setEmail('')
+        setPassword('')
+        setConfirmPassword('')
+    }
+
+    return (
+        <div className='center'>
+          <div className='auth'>
+            <h1>Register</h1>
+            {error && <div className='auth__error'>{error}</div>}
+            <form name='registration_form'>
+              <input 
+                type='email' 
+                value={email}
+                placeholder="Enter your email"
+                required
+                onChange={e => setEmail(e.target.value)}/>
+    
+              <input 
+                type='password'
+                value={password} 
+                required
+                placeholder='Enter your password'
+                onChange={e => setPassword(e.target.value)}/>
+    
+                <input 
+                type='password'
+                value={confirmPassword} 
+                required
+                placeholder='Confirm password'
+                onChange={e => setConfirmPassword(e.target.value)}/>
+    
+              <button type='submit'>Register</button>
+            </form>
+            <span>
+              Already have an account?  
+              
+            </span>
+          </div>
+        </div>
+      )
+    }
+    
