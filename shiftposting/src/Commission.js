@@ -1,7 +1,14 @@
 import './css/commission.css'
 import CommsCalc from './comms-componants/commcalc'
-import { useState } from 'react'
+import CommHistory from './comms-componants/CommHistory'
+import { useState, useEffect} from 'react'
 import DisplayRecentCalc from './comms-componants/DisplayRecentCalc'
+import {db} from './firebase'
+import { doc, getDoc } from "firebase/firestore";
+import { getFirestore, collection, query } from 'firebase/firestore';
+import { useCollection, useCollectionData, useCollectionOnce} from 'react-firebase-hooks/firestore';
+
+
 
 export default function CommissionUI() {
     const [currentCalc, setcurrentCalc] = useState({})
@@ -13,13 +20,40 @@ export default function CommissionUI() {
     const [sku, setsku] = useState()
     const [order, setorder] = useState()
     const [answer, setanswer] = useState()
+    const [tableData, setTableData] = useState()
+
+    // const GetmoreData = () => {
+    //     const commissionsRef = collection(db, 'comission')
+    //     const [snapshot, loading, error] = useCollectionData(query(commissionsRef));
+    //     console.log(snapshot)
+    // }
+    // GetmoreData()
+
+    const commissionId = 'r3MZtDQeIFVLvr1Pjmm3'
+    
+    const getData = async () => {
+        const docRef = doc(db, "commission", commissionId );
+        const docSnap = await getDoc(docRef);   
+        if (docSnap.exists()) {
+            return docSnap.data()
+        } else {
+            console.log("No such document!");
+        }
+    }
+
+    useEffect(() => {
+        getData()
+        .then((response) => {
+            
+            setTableData(response)
+        })
+    },[currentCalc])
+    
+    
+    
 
     const handleSubmitCalc = (e) => {
-
-        let x = (ticket - staff)
-        let y = (sale - staff)
-        let percent = (y / x)
-        let calcAnswer = (comms * percent)
+        let calcAnswer = ((ticket - staff) / (sale - staff) * comms)
         setanswer(calcAnswer)
 
         let commissionObj = {
@@ -33,8 +67,7 @@ export default function CommissionUI() {
             'answer': calcAnswer,
         }
         setcurrentCalc(commissionObj)
-        console.log(answer)
-        console.log(commissionObj)
+
 
     }
 
@@ -82,6 +115,10 @@ export default function CommissionUI() {
                 details={[order, name, sku, sale, staff, ticket, comms, answer]}
             />
 
+        <CommHistory
+         data={tableData}
+         ></CommHistory>
+           
         </div>
     )
 }

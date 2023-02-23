@@ -1,5 +1,5 @@
 import React from 'react'
-import { auth } from './firebase';
+import { app } from './firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react';
 
@@ -24,22 +24,6 @@ export default function Signup() {
         return isValid
     }
 
-
-    const register = e => {
-        e.preventDefault()
-        setError('')
-        if (validatePassword()) {
-            // Create a new user with email and password using firebase
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((res) => {
-                    console.log(res.user)
-                })
-                .catch(err => setError(err.message))
-        }
-        setEmail('')
-        setPassword('')
-        setConfirmPassword('')
-    }
 
     return (
         <div className='center'>
@@ -70,10 +54,6 @@ export default function Signup() {
     
               <button type='submit'>Register</button>
             </form>
-            <span>
-              Already have an account?  
-              
-            </span>
           </div>
         </div>
       )

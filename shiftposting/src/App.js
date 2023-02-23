@@ -1,4 +1,4 @@
-import { AuthProvider } from './Auth';
+
 import './css/App.css';
 import Dashboard from './Dashboard'
 import Signup from './Signup';
