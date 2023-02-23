@@ -1,0 +1,18 @@
+.side-nav{
+
+    max-width: 8%;
+    min-width: 8%;
+    height: 85vh;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.top-nav{
+
+    max-width: 100vw;
+    height: 15vh;
+
+}

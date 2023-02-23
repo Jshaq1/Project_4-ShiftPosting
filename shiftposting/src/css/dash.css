@@ -1,0 +1,10 @@
+.body{
+    background-color: aliceblue;
+}
+
+.section1{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 85vh;
+}
