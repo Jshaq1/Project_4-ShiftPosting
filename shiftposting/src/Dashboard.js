@@ -6,7 +6,6 @@ import CommissionUI from './Commission'
 import './css/dash.css'
 
 
-
 export default function Dashboard() {
     const [navState, setnavState] = useState('Comission')
 
