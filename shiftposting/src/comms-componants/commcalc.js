@@ -13,10 +13,10 @@ export default function CommsCalc(props) {
 
 
 
-  return <div className='commsCalc' >
-<Card sx={{ minWidth: 275 }}>
+  return (
+
     <form  className='calculator-form' onSubmit={handleSubmit}>
-      <FormControl >
+      {/* <FormControl > */}
         <div className='sale-details'>
           <h3> Sale Details</h3>
           <TextField
@@ -101,13 +101,14 @@ export default function CommsCalc(props) {
           InputProps={{
             startAdornment: <InputAdornment position="start">$</InputAdornment>,
           }}
-        /></div>
+          
+        /> <Button type='submit' size="small">Submit</Button></div>
         
 
-        <Button type='submit' size="small">Submit</Button>
-      </FormControl>
+       
+      {/* </FormControl> */}
     </form>
-    </Card>
+    
 
-  </div>
+  )
 }

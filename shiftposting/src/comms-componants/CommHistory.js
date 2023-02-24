@@ -9,7 +9,7 @@ export default function CommHistory(props) {
         {
             field: 'product',
             headerName: 'Product Name',
-            width: 200,
+            width: 150,
             editable: true,
         },
         {
@@ -55,12 +55,12 @@ export default function CommHistory(props) {
             editable: true,
         },
     ];
-    const sampleData = [{id: 1, product: 'dingus', sku: 578321, ticket: 200, staff: 52 }]
+
     const rows = props.data
     return (
-        <Box sx={{ height: 400, width: '200%' }}>
+        <Box sx={{ height: 350, width: '200%', padding: '30px'}}>
             <DataGrid
-                rows={props.data ? rows : sampleData}
+                rows={props.data ? rows : []}
                 columns={columns}
                 // pageSize={}
                 rowsPerPageOptions={[6]}
