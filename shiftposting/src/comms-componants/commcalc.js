@@ -40,9 +40,9 @@ export default function CommsCalc(props) {
         />
         <TextField
           required
-          id="NAME"
-          label="ITEM NAME"
-          value={props.name || ''} 
+          id="PRODUCT"
+          label="PRODUCT"
+          value={props.product || ''} 
           onChange={props.onChange}
           size='small'
           margin='dense'
@@ -78,10 +78,10 @@ export default function CommsCalc(props) {
         />
         <TextField
           required
-          id="SALE"
-          label="SALE PRICE"
+          id="SOLD"
+          label="SOLD AT"
           type="number"
-          value={props.sale || ''} 
+          value={props.sold || ''} 
           onChange={props.onChange}
           size='small'
           margin='dense'
@@ -91,10 +91,10 @@ export default function CommsCalc(props) {
         />
         <TextField
           required
-          id="COMMS"
-          label="COMISSION"
+          id="POTENTIAL"
+          label="POTENTIAL"
           type="number"
-          value={props.comms || ''} 
+          value={props.potential || ''} 
           onChange={props.onChange}
           size='small'
           margin='dense'
