@@ -5,17 +5,11 @@ import { DataGrid } from '@mui/x-data-grid';
 export default function CommHistory(props) {
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 40 },
+        { field: 'id', headerName: 'ORDER', width: 100},
         {
             field: 'product',
             headerName: 'Product Name',
-            width: 120,
-            editable: true,
-        },
-        {
-            field: 'order',
-            headerName: 'Order Num',
-            width: 120,
+            width: 200,
             editable: true,
         },
         {
@@ -70,8 +64,8 @@ export default function CommHistory(props) {
                 columns={columns}
                 // pageSize={}
                 rowsPerPageOptions={[6]}
-                checkboxSelection
-                disableSelectionOnClick
+                // checkboxSelec
+                // disableSelectionOnClick
                 experimentalFeatures={{ newEditingApi: true }}
             />
         </Box>
