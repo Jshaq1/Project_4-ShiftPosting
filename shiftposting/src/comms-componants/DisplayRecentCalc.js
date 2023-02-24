@@ -1,15 +1,14 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+
 
 export default function DisplayRecentCalc(props){
     
     return(
         <div>
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 400, maxHeight: 400 }}>
       <CardContent>
         <h3>Order#</h3>
         <p>{props.details[0]}</p>
