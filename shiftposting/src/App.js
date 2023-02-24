@@ -1,14 +1,18 @@
 
 import './css/App.css';
 import Dashboard from './Dashboard'
-import Signup from './Signup';
+import Signup from './UserAuth/Signup';
+import AuthDetails from './UserAuth/AuthDetails';
+import { Routes, Route, Link, BrowserRouter, NavLink } from 'react-router-dom';
 
 function App() {
+  const userDetails = AuthDetails()
+
   return (
     
       <div className="App">
-        <Dashboard></Dashboard>
-        {/* <Signup></Signup> */}
+        <Signup></Signup>
+        {/* <Dashboard></Dashboard> */}
       </div>
 
 

@@ -39,7 +39,7 @@ export default function CommissionUI(props) {
     }
 
     const setData = async () => {
-        await setDoc(doc(db, "commission", 'test'), currentCalc);
+        await setDoc(doc(db, "commission", order), currentCalc);
     }
 
     useEffect(() => {
@@ -59,7 +59,7 @@ export default function CommissionUI(props) {
 
 
     const handleSubmitCalc = (e) => {
-        let calcClaimed = ((ticket - staff) / (sold - staff) * potential)
+        let calcClaimed = (((sold - staff)/(ticket - staff)  ) * potential)
         setclaimed(calcClaimed)
         const commissionObj = {
             'ticket': ticket,
@@ -68,9 +68,9 @@ export default function CommissionUI(props) {
             'potential': potential,
             'product': product,
             'sku': sku,
-            'order': order,
+            'id': order,
             'claimed': calcClaimed,
-            'id': props.user,
+            'user': props.user,
         }
         setcurrentCalc(commissionObj)
         console.log(currentCalc)

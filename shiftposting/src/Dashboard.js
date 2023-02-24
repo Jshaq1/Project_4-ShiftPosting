@@ -4,6 +4,7 @@ import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 import CommissionUI from './Commission'
 import './css/dash.css'
+import Signup from './UserAuth/Signup'
 
 
 export default function Dashboard() {
@@ -18,6 +19,7 @@ export default function Dashboard() {
                 <CommissionUI 
                 user={userId}/>
             </div>
+        <Signup></Signup>
 
         </div>
     )
