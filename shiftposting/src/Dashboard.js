@@ -8,13 +8,15 @@ import './css/dash.css'
 
 export default function Dashboard() {
     const [navState, setnavState] = useState('Comission')
+    const [userId, setUserId] = useState('jordan')
 
     return (
         <div className='body'>
             <Topbar />
             <div className='section1'>
                 <Sidebar />
-                <CommissionUI />
+                <CommissionUI 
+                user={userId}/>
             </div>
 
         </div>
