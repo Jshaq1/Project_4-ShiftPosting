@@ -57,15 +57,16 @@ export default function CommHistory(props) {
     ];
 
     const rows = props.data
+
     return (
-        <Box sx={{ height: 350, width: '200%', padding: '30px'}}>
+        <Box sx={{ height: 400, width: '100%', padding: '30px', borderRadius: '20px'}}>
             <DataGrid
                 rows={props.data ? rows : []}
                 columns={columns}
                 // pageSize={}
                 rowsPerPageOptions={[6]}
                 // checkboxSelec
-                // disableSelectionOnClick
+                disableSelectionOnClick
                 experimentalFeatures={{ newEditingApi: true }}
             />
         </Box>

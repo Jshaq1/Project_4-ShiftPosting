@@ -50,7 +50,7 @@ export default function Signup() {
 
   const handleSignUp = (e) => {
     e.preventDefault()
-    if (validatePassword) {
+    if (validatePassword()) {
       createUserWithEmailAndPassword(auth, email, password)
         .catch((error) => {
           console.log(error)
@@ -78,9 +78,9 @@ export default function Signup() {
         <div className="form-container sign-up-container">
           <form className="login-form" id="signup" onSubmit={handleSignUp}>
             <h1 className="login-title">Create Account</h1>
-            <input name="email" type="email" placeholder="Email" required value={email} onChange={e => setEmail(e.target.value)} />
-            <input name="password" type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-            <input name="confirm-password" type="password" placeholder="Confirm-Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
+            <input type="email" placeholder="Email" required value={email} onChange={e => setEmail(e.target.value)} />
+            <input  type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
+            <input  type="password" placeholder="Confirm-Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
             <section id="errors">{error ? error : ''}</section>
             <button className="login-button">Sign Up</button>
           </form>
@@ -88,8 +88,8 @@ export default function Signup() {
         <div className="form-container sign-in-container">
           <form className="login-form" id="login" onSubmit={handleSignIn}>
             <h1 className="login-title">Sign in</h1>
-            <input type="email" name='email' placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-            <input type="password" name='password' placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
+            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
+            <input type="password"  placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
             <section id="login-errors">{error ? error : ''}</section>
             <button className="login-button">Sign In</button>
           </form>

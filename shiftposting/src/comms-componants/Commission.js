@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import DisplayRecentCalc from './DisplayRecentCalc'
 import { db } from '../firebase'
 import { collection, query, where, getDocs, setDoc, doc } from 'firebase/firestore';
-
+import Signout from '../UserAuth/Signout'
 
 
 
@@ -116,18 +116,18 @@ export default function CommissionUI(props) {
                         product={product}
                         sku={sku}
                         order={order}
+                        claimed={claimed}
                         onChange={onInputChange}
                         onSubmit={handleSubmitCalc} />
+                {/* <Signout></Signout> */}
                 
                 <div>
                     <CommHistory data={tableData} />
                 </div>
-
+                
             </div>
-
-            {/* <DisplayRecentCalc
-                details={[order, product, sku, sold, staff, ticket, potential, claimed]}
-            /> */}
+        
+           
 
 
 

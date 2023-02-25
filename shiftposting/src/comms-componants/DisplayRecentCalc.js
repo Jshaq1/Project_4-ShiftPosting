@@ -7,9 +7,7 @@ import CardContent from '@mui/material/CardContent';
 export default function DisplayRecentCalc(props){
     
     return(
-        <div>
-    <Card sx={{ minWidth: 400, maxHeight: 400 }}>
-      <CardContent>
+        <div className='input-details'>
         <h3>Order#</h3>
         <p>{props.details[0]}</p>
         <h3>Item Name</h3>
@@ -24,9 +22,6 @@ export default function DisplayRecentCalc(props){
         <p>{props.details[5]}</p>
         <h3>Potential Comms</h3>
         <p>{props.details[6]}</p>
-      </CardContent>
-    
-    </Card>
         </div>
     )
 }
