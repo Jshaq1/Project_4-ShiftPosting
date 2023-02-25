@@ -1,7 +1,7 @@
 import FormControl from '@mui/material/FormControl';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
+import DisplayRecentCalc from './DisplayRecentCalc';
 import InputAdornment from '@mui/material/InputAdornment';
 
 export default function CommsCalc(props) {
@@ -12,13 +12,68 @@ export default function CommsCalc(props) {
   }
 
 
+  
+
 
   return (
 
     <form  className='calculator-form' onSubmit={handleSubmit}>
-      {/* <FormControl > */}
-        <div className='sale-details'>
-          <h3> Sale Details</h3>
+      <FormControl
+      margin='dense' 
+      >
+      <div className='sale-details'>
+      <h3>PRICING</h3>
+         <TextField
+          required
+          id="TICKET"
+          label="TICKET"
+          type="number"
+          value={props.ticket || ''} 
+          onChange={props.onChange}
+          size='small'
+          margin='dense'
+          
+        />
+        <TextField
+          required
+          id="STAFF"
+          label="STAFF"
+          type="number"
+          value={props.staff || ''} 
+          onChange={props.onChange}
+          size='small'
+          margin='dense'
+          
+        />
+        <TextField
+          required
+          id="SOLD"
+          label="SOLD AT"
+          type="number"
+          value={props.sold || ''} 
+          onChange={props.onChange}
+          size='small'
+          margin='dense'
+          
+        />
+        <TextField
+          required
+          id="POTENTIAL"
+          label="POTENTIAL"
+          type="number"
+          value={props.potential || ''} 
+          onChange={props.onChange}
+          size='small'
+          margin='dense'
+          placeholder='$'
+          
+          
+        /> </div>
+        </FormControl>
+        <FormControl
+      margin='dense' >
+         <div className='sale-details'>
+          <h3>ORDER</h3>
           <TextField
           required
           id="ORDER"
@@ -47,66 +102,18 @@ export default function CommsCalc(props) {
           size='small'
           margin='dense'
         />
+        <Button variant='contained' type='submit' size="small"
+        sx={{
+          width:' 100%',
+          padding: '8px',
+          marginTop: '8px'
+        }}>Submit</Button>
         </div>
-      <div className='pricing-details'>
-      <h3>Pricing Details</h3>
-         <TextField
-          required
-          id="TICKET"
-          label="TICKET"
-          type="number"
-          value={props.ticket || ''} 
-          onChange={props.onChange}
-          size='small'
-          margin='dense'
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          }}
-        />
-        <TextField
-          required
-          id="STAFF"
-          label="STAFF"
-          type="number"
-          value={props.staff || ''} 
-          onChange={props.onChange}
-          size='small'
-          margin='dense'
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          }}
-        />
-        <TextField
-          required
-          id="SOLD"
-          label="SOLD AT"
-          type="number"
-          value={props.sold || ''} 
-          onChange={props.onChange}
-          size='small'
-          margin='dense'
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          }}
-        />
-        <TextField
-          required
-          id="POTENTIAL"
-          label="POTENTIAL"
-          type="number"
-          value={props.potential || ''} 
-          onChange={props.onChange}
-          size='small'
-          margin='dense'
-          InputProps={{
-            startAdornment: <InputAdornment position="start">$</InputAdornment>,
-          }}
-          
-        /> <Button type='submit' size="small">Submit</Button></div>
-        
-
-       
-      {/* </FormControl> */}
+        </FormControl>
+      <div className='result'>
+        <h2>Wow you can calim</h2>
+        <h1>{props.claimed}</h1>
+      </div>
     </form>
     
 
