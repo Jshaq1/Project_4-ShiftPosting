@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import DisplayRecentCalc from './DisplayRecentCalc';
 import InputAdornment from '@mui/material/InputAdornment';
 import axios from "axios";
-import MemeGen from './MemeGen';
+
 
 export default function CommsCalc(props) {
 
@@ -113,8 +113,8 @@ export default function CommsCalc(props) {
         </div>
         </FormControl>
       <div className='result'>
-        <MemeGen
-        claimed={props.claimed}></MemeGen>
+        <h2>You can claim</h2>
+       <h1>${Math.round(props.claimed)}</h1>
       </div>
     </form>
     
