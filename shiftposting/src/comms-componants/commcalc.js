@@ -1,8 +1,11 @@
 import FormControl from '@mui/material/FormControl';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useEffect } from 'react';
 import DisplayRecentCalc from './DisplayRecentCalc';
 import InputAdornment from '@mui/material/InputAdornment';
+import axios from "axios";
+import MemeGen from './MemeGen';
 
 export default function CommsCalc(props) {
 
@@ -12,7 +15,6 @@ export default function CommsCalc(props) {
   }
 
 
-  
 
 
   return (
@@ -111,8 +113,8 @@ export default function CommsCalc(props) {
         </div>
         </FormControl>
       <div className='result'>
-        <h2>Wow you can calim</h2>
-        <h1>{props.claimed}</h1>
+        <MemeGen
+        claimed={props.claimed}></MemeGen>
       </div>
     </form>
     
