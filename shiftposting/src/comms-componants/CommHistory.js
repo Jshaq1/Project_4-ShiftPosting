@@ -72,7 +72,7 @@ export default function CommHistory(props) {
                 disableSelectionOnClick
                 experimentalFeatures={{ newEditingApi: true }}
                 getCellClassName={(params) => {
-                    return params.field == 'claimed' ? 'important' : '';
+                    return params.field === 'claimed' ? 'important' : '';
                   }}
                 
             />
