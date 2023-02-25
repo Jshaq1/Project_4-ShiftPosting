@@ -2,24 +2,26 @@ import { useState } from 'react'
 import Navigation from './Navigation'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
-import CommissionUI from './Commission'
+import CommissionUI from './comms-componants/Commission'
 import './css/dash.css'
-import Signup from './UserAuth/Signup'
+import AuthDetails from './UserAuth/AuthDetails'
+import Signout from './UserAuth/Signout'
 
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const [navState, setnavState] = useState('Comission')
-    const [userId, setUserId] = useState('jordan')
+
 
     return (
         <div className='body'>
-            <Topbar />
+            {/* <Topbar userCredentials={props.userCredentials}/> */}
+            <Signout></Signout>
             <div className='section1'>
-                <Sidebar />
+                {/* <Sidebar /> */}
                 <CommissionUI 
-                user={userId}/>
+                userCredentials={props.userCredentials}/>
             </div>
-        <Signup></Signup>
+       
 
         </div>
     )
