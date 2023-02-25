@@ -50,6 +50,7 @@ export default function CommHistory(props) {
         {
             field: 'claimed',
             headerName: 'Claimable',
+            headerClassName: 'important',
             type: 'number',
             width: 110,
             editable: true,
@@ -59,7 +60,9 @@ export default function CommHistory(props) {
     const rows = props.data
 
     return (
-        <Box sx={{ height: 400, width: '100%', padding: '30px', borderRadius: '20px'}}>
+        <Box sx={{ height: 400, width: '100%', padding: '30px', borderRadius: '20px','& .important': {
+            backgroundColor: '#00800068'
+          } }}>
             <DataGrid
                 rows={props.data ? rows : []}
                 columns={columns}
@@ -68,6 +71,10 @@ export default function CommHistory(props) {
                 // checkboxSelec
                 disableSelectionOnClick
                 experimentalFeatures={{ newEditingApi: true }}
+                getCellClassName={(params) => {
+                    return params.field == 'claimed' ? 'important' : '';
+                  }}
+                
             />
         </Box>
     )
