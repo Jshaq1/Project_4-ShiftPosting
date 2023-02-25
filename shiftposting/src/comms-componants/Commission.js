@@ -1,11 +1,11 @@
-import './css/commission.css'
-import CommsCalc from './comms-componants/commcalc'
-import CommHistory from './comms-componants/CommHistory'
+import '../css/commission.css'
+import CommsCalc from './commcalc'
+import CommHistory from './CommHistory'
 import { useState, useEffect } from 'react'
-import DisplayRecentCalc from './comms-componants/DisplayRecentCalc'
-import { db } from './firebase'
+import DisplayRecentCalc from './DisplayRecentCalc'
+import { db } from '../firebase'
 import { collection, query, where, getDocs, setDoc, doc } from 'firebase/firestore';
-
+import Signout from '../UserAuth/Signout'
 
 
 
@@ -24,7 +24,7 @@ export default function CommissionUI(props) {
 
 
     const getData = async () => {
-        const docRef = query(collection(db, "commission"));
+        const docRef = query(collection(db, "commission"), where('user', '==', props.userCredentials));
         const docsSnap = await getDocs(docRef);
         const comissionData = []
         docsSnap.forEach(doc => {
@@ -38,7 +38,7 @@ export default function CommissionUI(props) {
         }
     }
 
-    const setData = async () => {
+    const setData = async (input) => {
         await setDoc(doc(db, "commission", order), currentCalc);
     }
 
@@ -50,16 +50,16 @@ export default function CommissionUI(props) {
             })
     }, [currentCalc])
 
-    
+
     useEffect(() => {
-        if(currentCalc !== undefined){
+        if (currentCalc !== undefined) {
             setData()
         }
-    },[currentCalc])
+    }, [currentCalc])
 
 
     const handleSubmitCalc = (e) => {
-        let calcClaimed = (((sold - staff)/(ticket - staff)  ) * potential)
+        let calcClaimed = (((sold - staff) / (ticket - staff)) * potential)
         setclaimed(calcClaimed)
         const commissionObj = {
             'ticket': ticket,
@@ -70,7 +70,7 @@ export default function CommissionUI(props) {
             'sku': sku,
             'id': order,
             'claimed': calcClaimed,
-            'user': props.user,
+            'user': props.userCredentials,
         }
         setcurrentCalc(commissionObj)
         console.log(currentCalc)
@@ -106,24 +106,28 @@ export default function CommissionUI(props) {
 
     return (
         <div className="main">
-            <div>
-                <CommsCalc
-                    ticket={ticket}
-                    staff={staff}
-                    sold={sold}
-                    potential={potential}
-                    product={product}
-                    sku={sku}
-                    order={order}
-                    onChange={onInputChange}
-                    onSubmit={handleSubmitCalc} />
-                <CommHistory
-                    data={tableData}
-                ></CommHistory>
+            <div className='commsCalc' >
+                
+                    <CommsCalc
+                        ticket={ticket}
+                        staff={staff}
+                        sold={sold}
+                        potential={potential}
+                        product={product}
+                        sku={sku}
+                        order={order}
+                        claimed={claimed}
+                        onChange={onInputChange}
+                        onSubmit={handleSubmitCalc} />
+                {/* <Signout></Signout> */}
+                
+                <div>
+                    <CommHistory data={tableData} />
+                </div>
+                
             </div>
-            <DisplayRecentCalc
-                details={[order, product, sku, sold, staff, ticket, potential, claimed]}
-            />
+        
+           
 
 
 
