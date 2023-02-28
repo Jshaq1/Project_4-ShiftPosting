@@ -29,8 +29,8 @@ export default function SendMessage({scroll}) {
 
 
     return (
-        <div>
-            <form onSubmit={send}>
+        <div >
+            <form className='message-send' onSubmit={send}>
                 <TextField
                     id="outlined-multiline-static"
                     multiline
@@ -38,8 +38,18 @@ export default function SendMessage({scroll}) {
                     placeholder="Say Hi!"
                     onChange={(e) => setInput(e.target.value)}
                     value={input}
+                    sx={{
+                        width:'400px',
+                        
+                       
+                      }}
                 />
-                <Button variant="contained" endIcon={<SendIcon />} type='submit'>
+                <Button variant="contained" endIcon={<SendIcon />} type='submit'
+                 sx={{
+                    width:'150px',
+                    padding: '8px',
+                    height:'55px'
+                  }}>
                     Send
                 </Button>
             </form>
