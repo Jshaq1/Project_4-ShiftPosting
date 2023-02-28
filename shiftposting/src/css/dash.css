@@ -1,9 +1,9 @@
 .body{
     background-color: aliceblue;
-    height: fit-content;
+    height: 100vh;
     display: flex;
     flex-direction: row;
-    background-image: url('https://cdn.statically.io/img/codetheweb.blog/assets/img/posts/css-advanced-background-images/cover.jpg?f=webp&w=1440')
+
 
 }
 
@@ -12,4 +12,9 @@
     flex-direction: row;
     width: 100vw;
     height: 100vh;
+}
+
+.background-image{
+    width: 100%;
+    height: 100%;
 }

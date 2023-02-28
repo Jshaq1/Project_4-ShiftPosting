@@ -1,5 +1,5 @@
 import React from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
 import { useState } from 'react';
 import { auth } from '../firebase';
 import '../css/login-modal.css'
@@ -11,6 +11,7 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [displayName, setdisplayName] = useState('')
   const [error, setError] = useState('')
 
 
@@ -46,12 +47,17 @@ export default function Signup() {
       })
   }
 
-
+  
 
   const handleSignUp = (e) => {
     e.preventDefault()
     if (validatePassword()) {
       createUserWithEmailAndPassword(auth, email, password)
+      .then(response => {
+        updateProfile(auth.currentUser, {
+          displayName: displayName
+        })}
+        )
         .catch((error) => {
           console.log(error)
           if (error.message.includes('auth/email-already-in-use')) {
@@ -59,7 +65,7 @@ export default function Signup() {
           }
         })
     } else { setError('Passwords do not match') }
-
+  
   }
 
   const handleSignOut = (e) => {
@@ -79,6 +85,7 @@ export default function Signup() {
           <form className="login-form" id="signup" onSubmit={handleSignUp}>
             <h1 className="login-title">Create Account</h1>
             <input type="email" placeholder="Email" required value={email} onChange={e => setEmail(e.target.value)} />
+            <input type="displayName" placeholder="User Name" required value={displayName} onChange={e => setdisplayName(e.target.value)} />
             <input  type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
             <input  type="password" placeholder="Confirm-Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
             <section id="errors">{error ? error : ''}</section>
