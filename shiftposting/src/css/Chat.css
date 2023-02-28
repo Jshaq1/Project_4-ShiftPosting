@@ -10,12 +10,78 @@
 	max-width: 500px;
 	min-width: 600px;
     min-height: 700px;
-	max-height: 85%;
+	max-height: 70%;
   	align-items: left;
 	margin: auto;
 
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.message-window{
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	padding: 50px;
+	height: 85%;
+	width: 95%;
+	background-color: rgba(255, 255, 255, 0.613); 
+	border-radius: 15px;
+}
+
+.sent{
+	display: flex;
+	text-align: right;
+	color: rgb(255, 255, 255);
+	justify-content: right;
+	align-items: right;
+}
+
+.recieved{
+	display: flex;
+	text-align: left;
+	color: rgb(255, 255, 255);
+	justify-content: left;
+	align-items: left;
+}
+
+
+.user-name{
+	font-size: small;
+	color: grey;
+	margin-bottom: 3px;
+	
+}
+
+
+.message.received{
+	background-color: rgba(80, 80, 80, 0.477);
+	padding: 10px;
+	border-radius: 12px;
+	width: fit-content;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 0;
+}
+.message.sent{
+	background-color: rgba(50, 111, 255, 0.871);
+	padding: 10px;
+	border-radius: 12px;
+	width: fit-content;
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 0;
+}
+
+
+.message-send{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	gap: 10px;
+	
 }

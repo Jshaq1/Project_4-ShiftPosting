@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import CommissionUI from './comms-componants/Commission'
 import './css/dash.css'
-import { Routes, Route, Link, BrowserRouter, NavLink } from 'react-router-dom';
+import { Routes, Route, BrowserRouter, NavLink } from 'react-router-dom';
 import Spline from '@splinetool/react-spline';
 import { onAuthStateChanged} from 'firebase/auth'
 import { auth } from './firebase'
@@ -36,15 +36,14 @@ export default function Dashboard(props) {
 
     return (
         <BrowserRouter>
-            
+                <Signout></Signout>
                 {authUser ? '' : <Signup></Signup>}
-                <NavLink className='body' to={navState === 'calculator' ? '/commissionDash' : '/'}>
-                    <Signout></Signout>
+                <NavLink className='body' to={navState}>
                     <Spline scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode' onMouseDown={mouseClick} />
                 </NavLink>
                 <Routes>
-                    <Route path='/commissionDash' element={<CommissionUI userCredentials={authUser} onClick={mouseClick}/>} />
-                    <Route path='/chat' element={<ChatUI userCredentials={authUser} ></ChatUI>}/>
+                    <Route path='/calculator' element={<CommissionUI userCredentials={authUser} onClick={mouseClick}/>} />
+                    <Route path='/chat' element={<ChatUI onClick={mouseClick} userCredentials={authUser} ></ChatUI>}/>
                 </Routes>
 
         </BrowserRouter>
