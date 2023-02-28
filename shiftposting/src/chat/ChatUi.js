@@ -35,6 +35,7 @@ export default function ChatUI(props) {
                 <div className='message-window'>
                     <NavLink to={'/'}><HomeIcon name='/' onClick={props.onClick} color="primary" sx={{ fontSize: 60 }} className='home-btn'></HomeIcon></NavLink>
                     <div>
+
                         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} timestamp={msg.createdAt} userName={msg.name}></ChatMessage>)}
                         <span ref={scroll}></span>
                     </div>
