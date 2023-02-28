@@ -1,10 +1,8 @@
-import FormControl from '@mui/material/FormControl';
+import FormControl from '@mui/material/FormControl'
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
-import { useEffect } from 'react';
-import DisplayRecentCalc from './DisplayRecentCalc';
-import InputAdornment from '@mui/material/InputAdornment';
-import axios from "axios";
+
+
 
 
 export default function CommsCalc(props) {
@@ -20,9 +18,11 @@ export default function CommsCalc(props) {
   return (
 
     <form  className='calculator-form' onSubmit={handleSubmit}>
+      
       <FormControl
       margin='dense' 
       >
+       
       <div className='sale-details'>
       <h3>PRICING</h3>
          <TextField

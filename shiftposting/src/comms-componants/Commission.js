@@ -2,10 +2,12 @@ import '../css/commission.css'
 import CommsCalc from './commcalc'
 import CommHistory from './CommHistory'
 import { useState, useEffect } from 'react'
-import DisplayRecentCalc from './DisplayRecentCalc'
 import { db } from '../firebase'
 import { collection, query, where, getDocs, setDoc, doc } from 'firebase/firestore';
-import Signout from '../UserAuth/Signout'
+import { NavLink } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+
+
 
 
 
@@ -103,11 +105,14 @@ export default function CommissionUI(props) {
         }
     }
 
-
+   
     return (
+        
+        
         <div className="main">
-            <div className='commsCalc' >
-                
+            
+            <div className='commsCalc' name='/' >
+                 <NavLink to={'/'}><HomeIcon name='/' onClick={props.onClick} color="primary" sx={{ fontSize: 60 }} className='home-btn'></HomeIcon></NavLink>
                     <CommsCalc
                         ticket={ticket}
                         staff={staff}
@@ -119,7 +124,7 @@ export default function CommissionUI(props) {
                         claimed={claimed}
                         onChange={onInputChange}
                         onSubmit={handleSubmitCalc} />
-                {/* <Signout></Signout> */}
+
                 
                 <div>
                     <CommHistory data={tableData} />
@@ -132,5 +137,6 @@ export default function CommissionUI(props) {
 
 
         </div>
+
     )
 }
