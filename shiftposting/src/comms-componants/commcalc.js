@@ -108,13 +108,14 @@ export default function CommsCalc(props) {
         sx={{
           width:' 100%',
           padding: '8px',
-          marginTop: '8px'
+          marginTop: '8px',
+          marginBottom: '6px'
         }}>Submit</Button>
         </div>
         </FormControl>
       <div className='result'>
         <h2>You can claim</h2>
-       <h1>${Math.round(props.claimed)}</h1>
+       <h1>{props.claimed !== undefined ? `${Math.round(props.claimed)}` : ''}</h1>
       </div>
     </form>
     

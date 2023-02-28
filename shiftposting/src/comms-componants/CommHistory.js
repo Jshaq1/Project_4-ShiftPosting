@@ -5,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 export default function CommHistory(props) {
 
     const columns = [
-        { field: 'id', headerName: 'ORDER', width: 100},
+        { field: 'id', headerName: 'ORDER', width: 150},
         {
             field: 'product',
             headerName: 'Product Name',
@@ -44,7 +44,7 @@ export default function CommHistory(props) {
             field: 'potential',
             headerName: 'Comm/Spiv',
             type: 'number',
-            width: 110,
+            width: 113,
             editable: true,
         },
         {
@@ -52,7 +52,7 @@ export default function CommHistory(props) {
             headerName: 'Claimable',
             headerClassName: 'important',
             type: 'number',
-            width: 110,
+            width: 115,
             editable: true,
         },
     ];
@@ -66,11 +66,9 @@ export default function CommHistory(props) {
             <DataGrid
                 rows={props.data ? rows : []}
                 columns={columns}
-                // pageSize={}
-                rowsPerPageOptions={[6]}
-                // checkboxSelec
+                rowsPerPageOptions={[10]}
                 disableSelectionOnClick
-                experimentalFeatures={{ newEditingApi: true }}
+                onCellClick={props.onClick}
                 getCellClassName={(params) => {
                     return params.field === 'claimed' ? 'important' : '';
                   }}

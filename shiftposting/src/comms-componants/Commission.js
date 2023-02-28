@@ -3,7 +3,7 @@ import CommsCalc from './commcalc'
 import CommHistory from './CommHistory'
 import { useState, useEffect } from 'react'
 import { db } from '../firebase'
-import { collection, query, where, getDocs, setDoc, doc } from 'firebase/firestore';
+import { collection, query, where, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { NavLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 
@@ -48,19 +48,29 @@ export default function CommissionUI(props) {
         getData()
             .then((response) => {
                 setTableData(response)
-                console.log('get happened')
             })
     }, [currentCalc])
 
 
     useEffect(() => {
-        if (currentCalc !== undefined) {
+        if (currentCalc) {
             setData()
+            .then(res => {
+            setticket()
+            setstaff()
+            setsold()
+            setpotential()
+            setproduct()
+            setsku()
+            setorder()
+            setclaimed()
+            })
         }
+
     }, [currentCalc])
 
 
-    const handleSubmitCalc = (e) => {
+    const handleSubmitCalc = async (e) => {
         let calcClaimed = (((sold - staff) / (ticket - staff)) * potential)
         setclaimed(calcClaimed)
         const commissionObj = {
@@ -75,8 +85,6 @@ export default function CommissionUI(props) {
             'user': props.userCredentials,
         }
         setcurrentCalc(commissionObj)
-        console.log(currentCalc)
-
     }
 
     const onInputChange = (e) => {
@@ -105,34 +113,45 @@ export default function CommissionUI(props) {
         }
     }
 
-   
-    return (
-        
-        
-        <div className="main">
-            
-            <div className='commsCalc' name='/' >
-                 <NavLink to={'/'}><HomeIcon name='/' onClick={props.onClick} color="primary" sx={{ fontSize: 60 }} className='home-btn'></HomeIcon></NavLink>
-                    <CommsCalc
-                        ticket={ticket}
-                        staff={staff}
-                        sold={sold}
-                        potential={potential}
-                        product={product}
-                        sku={sku}
-                        order={order}
-                        claimed={claimed}
-                        onChange={onInputChange}
-                        onSubmit={handleSubmitCalc} />
+    const deleteCalc = async (e) => {
+        if (window.confirm('Are you sure you wish to delete?')) {
+            await deleteDoc(doc(db, 'commission', e.row.id))
+                .then(res => {
+                    setcurrentCalc(0)
+                })
+        } else {
+            return
+        }
 
-                
+
+    }
+    return (
+
+
+        <div className="main">
+
+            <div className='commsCalc' name='/' >
+                <NavLink to={'/'}><HomeIcon name='/' onClick={props.onClick} color="primary" sx={{ fontSize: 60 }} className='home-btn'></HomeIcon></NavLink>
+                <CommsCalc
+                    ticket={ticket}
+                    staff={staff}
+                    sold={sold}
+                    potential={potential}
+                    product={product}
+                    sku={sku}
+                    order={order}
+                    claimed={claimed}
+                    onChange={onInputChange}
+                    onSubmit={handleSubmitCalc} />
+
+
                 <div>
-                    <CommHistory data={tableData} />
+                    <CommHistory data={tableData} onClick={deleteCalc} />
                 </div>
-                
+
             </div>
-        
-           
+
+
 
 
 
