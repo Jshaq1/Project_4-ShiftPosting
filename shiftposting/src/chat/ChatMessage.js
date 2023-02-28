@@ -1,13 +1,20 @@
+import { auth } from '../firebase'
 
 
 export default function ChatMessage(props) {
-    const { text, userId } = props.message
+    const { text, uid } = props.message
+    const currentUser = auth.currentUser.uid
+    
+   const style = currentUser === uid ? 'sent' : 'received'
 
     return (
-        <div>
-            <p>{props.userName}</p>
-            <p>{text}</p>
+        <div className={style}>
+            <div className='message-box'>
+            <p className="user-name">{props.userName ? props.userName : 'Its a Mystery!'}</p>
+            <p className={`message ${style}`} >{text}</p>
+            </div>
         </div>
-
+        
+    
     )
 }

@@ -3,6 +3,8 @@ import { collection, query, limit, orderBy, onSnapshot } from 'firebase/firestor
 import ChatMessage from './ChatMessage';
 import { useState, useEffect, useRef } from 'react'
 import '../css/Chat.css'
+import { NavLink } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
 
 import SendMessage from './SendMessage';
 
@@ -30,14 +32,19 @@ export default function ChatUI(props) {
     return (
         <div className='main'>
             <div className='chatUi'>
-                <div>
-                    {messages && messages.map(msg => <ChatMessage  key={msg.id} message={msg} timestamp={msg.createdAt} userName={msg.name}></ChatMessage>)}
-                </div>
-            <SendMessage scroll={scroll}></SendMessage>
-            <span ref={scroll}></span>
-
+                <div className='message-window'>
+                    <NavLink to={'/'}><HomeIcon name='/' onClick={props.onClick} color="primary" sx={{ fontSize: 60 }} className='home-btn'></HomeIcon></NavLink>
+                    <div>
+                        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} timestamp={msg.createdAt} userName={msg.name}></ChatMessage>)}
+                        <span ref={scroll}></span>
+                    </div>
+                    
+                    </div>
+                    <SendMessage scroll={scroll}></SendMessage>
+                    
+                
             </div>
-
+            
 
         </div>
     )

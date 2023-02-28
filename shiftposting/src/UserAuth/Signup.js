@@ -1,5 +1,5 @@
 import React from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useState } from 'react';
 import { auth } from '../firebase';
 import '../css/login-modal.css'
@@ -68,13 +68,7 @@ export default function Signup() {
   
   }
 
-  const handleSignOut = (e) => {
-    e.preventDefault()
-    signOut(auth)
-      .then(() => {
-        console.log('sign out ')
-      }).catch(error => console.log(error))
-  }
+
 
 
 
