@@ -1,6 +1,7 @@
-import FormControl from '@mui/material/FormControl';
+import FormControl from '@mui/material/FormControl'
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
+
 
 
 
@@ -17,9 +18,11 @@ export default function CommsCalc(props) {
   return (
 
     <form  className='calculator-form' onSubmit={handleSubmit}>
+      
       <FormControl
       margin='dense' 
       >
+       
       <div className='sale-details'>
       <h3>PRICING</h3>
          <TextField

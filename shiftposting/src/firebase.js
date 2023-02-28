@@ -1,12 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import firebase from 'firebase/app';
+import 'firebase/firestore';
 import { getFirestore } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth} from 'firebase/auth'
 import 'firebase/auth';
 
-console.log(process.env.REACT_APP_FIREBASE_KEY)
-console.log(process.env)
+
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_DOMAIN,
@@ -20,7 +19,7 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
 
 export const auth = getAuth(app)
 export const db = getFirestore(app);
