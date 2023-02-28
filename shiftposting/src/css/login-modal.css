@@ -38,8 +38,8 @@ p.login-desc {
 
 button.login-button {
 	border-radius: 20px;
-	border: 1px solid #fff649;
-	background-color: #ffd310;
+	border: 1px solid #c387ff;
+	background-color: #c387ff;;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -139,7 +139,7 @@ input {
 
 .overlay {
 	
-	background: #ffd310;
+	background: #c387ff;;
 	background-size: cover;
 	background-position: 0 0;
 	color: #FFFFFF;
