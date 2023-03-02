@@ -38,8 +38,8 @@ p.login-desc {
 
 button.login-button {
 	border-radius: 20px;
-	border: 1px solid #fff649;
-	background-color: #ffd310;
+	border: 1px solid #c387ff;
+	background-color: #c387ff;;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -90,7 +90,8 @@ input {
 	max-width: 100%;
 	min-height: 480px;
 	margin: auto;
-	margin-top: 10%;   
+	top: 20%;
+	
 }
 
 .form-container {
@@ -139,7 +140,7 @@ input {
 
 .overlay {
 	
-	background: #ffd310;
+	background: #c387ff;;
 	background-size: cover;
 	background-position: 0 0;
 	color: #FFFFFF;
@@ -186,6 +187,9 @@ input {
 	transform: translateX(0);
 }
 
+#login-errors{
+	padding: 10px;
+}
 
 @keyframes show {
 	0%, 49.99% {
