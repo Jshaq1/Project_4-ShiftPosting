@@ -9,9 +9,8 @@ export default function Signout() {
         e.preventDefault()
         signOut(auth)
         .then(() => {
-          console.log('sign out ')
         }).catch(error => console.log(error))
       }
 
-return <Button onClick={handleSignOut}>Signout</Button>
+return <Button className='signout' onClick={handleSignOut}>Signout</Button>
 }

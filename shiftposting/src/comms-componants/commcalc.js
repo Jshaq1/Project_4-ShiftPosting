@@ -115,7 +115,7 @@ export default function CommsCalc(props) {
         </FormControl>
       <div className='result'>
         <h2>You can claim</h2>
-       <h1>{props.claimed !== undefined ? `${Math.round(props.claimed)}` : ''}</h1>
+       <h1>{props.claimed !== undefined ? `$${Math.round(props.claimed)}` : ''}</h1>
       </div>
     </form>
     
