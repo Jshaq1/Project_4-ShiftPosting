@@ -63,7 +63,7 @@ export default function CommissionUI(props) {
             setproduct()
             setsku()
             setorder()
-            setclaimed()
+
             })
         }
 

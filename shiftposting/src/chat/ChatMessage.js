@@ -1,4 +1,4 @@
-import { auth } from '../firebase'
+import { auth, db} from '../firebase'
 
 
 export default function ChatMessage(props) {
@@ -9,7 +9,7 @@ export default function ChatMessage(props) {
 
     return (
         <div className={style}>
-            <div className='message-box'>
+            <div className={`message-box ${style}`}>
             <p className="user-name">{props.userName ? props.userName : 'Its a Mystery!'}</p>
             <p className={`message ${style}`} >{text}</p>
             </div>

@@ -25,11 +25,13 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0;
-	padding: 50px;
+	padding: 25px;
 	height: 85%;
 	width: 95%;
 	background-color: rgba(255, 255, 255, 0.613); 
 	border-radius: 15px;
+	overflow: hidden;
+	justify-content: flex-end;
 }
 
 .sent{
@@ -55,6 +57,13 @@
 	margin-bottom: 3px;
 	
 }
+.message-box.sent{
+	display: flex;
+	flex-direction: column;
+	justify-content: right;
+	align-items: right
+	;
+}
 
 
 .message.received{
@@ -74,6 +83,7 @@
 	padding-left: 15px;
 	padding-right: 15px;
 	margin-top: 0;
+	text-align: right;
 }
 
 
