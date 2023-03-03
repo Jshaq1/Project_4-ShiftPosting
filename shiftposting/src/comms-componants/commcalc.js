@@ -29,6 +29,7 @@ export default function CommsCalc(props) {
           required
           id="TICKET"
           label="TICKET"
+          data-testid="TICKET"
           type="number"
           value={props.ticket || ''} 
           onChange={props.onChange}
@@ -40,6 +41,7 @@ export default function CommsCalc(props) {
           required
           id="STAFF"
           label="STAFF"
+          data-testid="STAFF"
           type="number"
           value={props.staff || ''} 
           onChange={props.onChange}
@@ -51,6 +53,7 @@ export default function CommsCalc(props) {
           required
           id="SOLD"
           label="SOLD AT"
+          data-testid="SOLD AT"
           type="number"
           value={props.sold || ''} 
           onChange={props.onChange}
@@ -62,6 +65,7 @@ export default function CommsCalc(props) {
           required
           id="POTENTIAL"
           label="POTENTIAL"
+          data-testid="POTENTIAL"
           type="number"
           value={props.potential || ''} 
           onChange={props.onChange}
@@ -80,6 +84,7 @@ export default function CommsCalc(props) {
           required
           id="ORDER"
           label="ORDER#"
+          data-testid="ORDER"
           value={props.order || ''} 
           onChange={props.onChange}
           size='small'
@@ -90,6 +95,7 @@ export default function CommsCalc(props) {
           id="SKU"
           label="SKU"
           type="number"
+          data-testid="SKU"
           value={props.sku || ''} 
           onChange={props.onChange}
           size='small'
@@ -99,12 +105,17 @@ export default function CommsCalc(props) {
           required
           id="PRODUCT"
           label="PRODUCT"
+          data-testid="PRODUCT"
           value={props.product || ''} 
           onChange={props.onChange}
           size='small'
           margin='dense'
         />
-        <Button variant='contained' type='submit' size="small"
+        <Button variant='contained' 
+        label='CALCULATE'
+        data-testid='CALCULATE'
+        type='submit' 
+        size="small"
         sx={{
           width:' 100%',
           padding: '8px',
@@ -115,7 +126,7 @@ export default function CommsCalc(props) {
         </FormControl>
       <div className='result'>
         <h2>You can claim</h2>
-       <h1>{props.claimed !== undefined ? `$${Math.round(props.claimed)}` : ''}</h1>
+       <h1 data-testid='OUTPUT'>{props.claimed !== undefined ? `$${Math.round(props.claimed)}` : ''}</h1>
       </div>
     </form>
     
