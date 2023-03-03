@@ -45,7 +45,6 @@ export default function Signup({triggerSignup, triggerSignIn}) {
       setError('Success')
     })
     .catch((error) => {
-      
         if (error.code === 'auth/user-not-found'){
           setError('User does not exist')
           setPassword('')
