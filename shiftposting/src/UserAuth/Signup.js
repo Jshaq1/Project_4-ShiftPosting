@@ -1,5 +1,4 @@
 import React from 'react'
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useState } from 'react';
 import { auth } from '../firebase';
 import '../css/login-modal.css'
@@ -7,7 +6,7 @@ import '../css/login-modal.css'
 
 
 
-export default function Signup() {
+export default function Signup({triggerSignup, triggerSignIn}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -18,7 +17,7 @@ export default function Signup() {
 
   const validatePassword = () => {
       if (password !== confirmPassword) {
-        setError('Passwords does not match')
+        setError('Passwords do not match')
         return false
       }
     return true
@@ -41,10 +40,12 @@ export default function Signup() {
   const handleSignIn = (e) => {
     e.preventDefault()
     setError('Logging in...')
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        setError('Success!')
-      }).catch((error) => {
+    triggerSignIn(auth, email, password)
+    .then(() => {
+      setError('Success')
+    })
+    .catch((error) => {
+      
         if (error.code === 'auth/user-not-found'){
           setError('User does not exist')
           setPassword('')
@@ -61,20 +62,17 @@ export default function Signup() {
     e.preventDefault()
     setError('')
     if (validatePassword()) {
-      createUserWithEmailAndPassword(auth, email, password)
-      .then(response => {
-        updateProfile(auth.currentUser, {
-          displayName: displayName
+      triggerSignup(auth, email, password, displayName)
+        .then(() => {
+          setError('Success')
         })
-        setError('Success')
-      })
         .catch((error) => {
+         
           if (error.code === 'auth/email-already-in-use') {
             setError('Email already in use')
           }
         })
     } else { setError('Passwords do not match') }
-  
   }
 
 
@@ -83,25 +81,25 @@ export default function Signup() {
 
   return (
     <div id="modal-container">
-      <div className="login-container" id="container">
+      <div className="login-container" id="container" data-testid='container'>
         <div className="form-container sign-up-container">
-          <form className="login-form" id="signup" onSubmit={handleSignUp}>
+          <form data-testid='loginForm' className="login-form" id="signup" onSubmit={handleSignUp}>
             <h1 className="login-title">Create Account</h1>
-            <input type="email" placeholder="Email" required value={email} onChange={e => setEmail(e.target.value)} />
-            <input type="displayName" placeholder="User Name" required value={displayName} onChange={e => setdisplayName(e.target.value)} />
-            <input  type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-            <input  type="password" placeholder="Confirm-Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
+            <input data-testid='SignUp-email' type="email" placeholder="Email" required value={email} onChange={e => setEmail(e.target.value)} />
+            <input data-testid='SignUp-name' type="displayName" placeholder="User Name" required value={displayName} onChange={e => setdisplayName(e.target.value)} />
+            <input data-testid='SignUp-password' type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
+            <input data-testid='SignUp-confirm' type="password" placeholder="Confirm-Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
             <section id="login-errors">{error ? error : ''}</section>
-            <button className="login-button">Sign Up</button>
+            <button data-testid='Sign Up' className="login-button">Sign Up</button>
           </form>
         </div>
         <div className="form-container sign-in-container">
           <form className="login-form" id="login" onSubmit={handleSignIn}>
             <h1 className="login-title">Sign in</h1>
-            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-            <input type="password"  placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
-            <section id="login-errors">{error ? error : ''}</section>
-            <button className="login-button">Sign In</button>
+            <input type="email" data-testid='email' placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
+            <input type="password" data-testid='password' placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
+            <section data-testid='errors' id="login-errors">{error ? error : ''}</section>
+            <button data-testid='Sign In' className="login-button">Sign In</button>
           </form>
         </div>
         <div className="overlay-container">
@@ -109,12 +107,12 @@ export default function Signup() {
             <div className="overlay-panel overlay-left">
               <h1 className="login-title">Welcome Back!</h1>
               <p className="login-desc">You can never leave</p>
-              <button className="login-button outlined" id="signIn" onClick={formView}>Sign In</button>
+              <button  className="login-button outlined" data-testid='Sign-In' id="signIn" onClick={formView}>Sign In</button>
             </div>
             <div className="overlay-panel overlay-right">
               <h1 className="login-title">Hello, Friend!</h1>
               <p className="login-desc">Join us..</p>
-              <button className="login-button outlined" id="signUp" onClick={formView}>Sign Up</button>
+              <button className="login-button outlined" data-testid='Sign-Up' id="signUp" onClick={formView}>Sign Up</button>
             </div>
           </div>
         </div>

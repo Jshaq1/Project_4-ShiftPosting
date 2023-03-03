@@ -10,11 +10,14 @@ import Signup from './UserAuth/Signup';
 import Loader from './UserAuth/Loader';
 import Signout from './UserAuth/Signout'
 import ChatUI from './chat/ChatUi';
+import Homepage from './Homepage';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 
-export default function Dashboard(props) {
+function Dashboard(props) {
     const [navState, setnavState] = useState('')
     const [authUser, setAuthUser] = useState(null)
+    const [displayName, setDisplayName] = useState()
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -25,6 +28,7 @@ export default function Dashboard(props) {
         const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAuthUser(user.email)
+                setDisplayName(user.displayName)
             } else {
                 setAuthUser(null)
             }
@@ -40,13 +44,29 @@ export default function Dashboard(props) {
         setnavState(e.target.name)   
     }
 
+    const handleSignIn = (auth, email, password) => {
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    const handleSignUp = (auth, email, password, displayName) => {
+        return createUserWithEmailAndPassword(auth, email, password)
+        .then(response => {
+          updateProfile(auth.currentUser, {
+            displayName: displayName
+          })
+          
+        })}
+     
     return (
         <BrowserRouter>
                 {loading === true ? <Loader></Loader> : '' }
-                {authUser ? '' : <Signup></Signup>}
-                <NavLink className='body' to={navState}>
+                {loading === false && authUser === null ? <Signup triggerSignup={handleSignUp} triggerSignIn={handleSignIn}></Signup> : ''  }
                 <Signout></Signout>
-                    <Spline testId='home-scene' scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode' onMouseDown={mouseClick} />
+                <Homepage displayName={displayName}></Homepage>
+                
+                <NavLink className='body' to={navState}>
+                    <Spline className='spline-scene' scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode' onMouseDown={mouseClick} />
+                    
                 </NavLink>
                 <Routes>
                     <Route path='/calculator' element={<CommissionUI userCredentials={authUser} onClick={mouseClick}/>} />
@@ -56,3 +76,5 @@ export default function Dashboard(props) {
         </BrowserRouter>
     )
 }
+
+export default Dashboard
