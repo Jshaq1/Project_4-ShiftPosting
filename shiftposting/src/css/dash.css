@@ -48,5 +48,12 @@
 .user-title>h1{
     margin: 0;
     margin-right: 4%;
+    z-index: 0;
+}
+
+.signout{
+    background-color: aliceblue;
+    position: absolute;
+    z-index: 10;
 
 }

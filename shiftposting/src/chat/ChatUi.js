@@ -14,7 +14,7 @@ export default function ChatUI(props) {
     const scroll = useRef()
 
     useEffect(() => {
-        const q = query(collection(db, 'messages'), orderBy('timestamp'), limit(25))
+        const q = query(collection(db, 'messages'), orderBy('timestamp'))
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             let messages = []
             querySnapshot.forEach((doc) => {
@@ -24,8 +24,6 @@ export default function ChatUI(props) {
         })
         return () => unsubscribe();
     }, [])
-
-
 
 
 

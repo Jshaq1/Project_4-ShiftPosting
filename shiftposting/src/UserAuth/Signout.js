@@ -1,6 +1,7 @@
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase'
 import Button from '@mui/material/Button';
+import '../css/dash.css'
 
 export default function Signout() {
     
@@ -12,5 +13,5 @@ export default function Signout() {
         }).catch(error => console.log(error))
       }
 
-return <Button className='signout' onClick={handleSignOut}>Signout</Button>
+return <div className='signout'><Button  onClick={handleSignOut}>Signout</Button></div> 
 }
