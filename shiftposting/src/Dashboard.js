@@ -41,7 +41,7 @@ function Dashboard(props) {
  
    
     const mouseClick = (e) => {
-        setnavState(e.target.name)   
+        setnavState('./' + e.target.name)   
     }
 
     const handleSignIn = (auth, email, password) => {
@@ -58,7 +58,7 @@ function Dashboard(props) {
         })}
      
     return (
-        <BrowserRouter>
+        <BrowserRouter basename='Project_4-ShiftPosting'>
                 {loading === true ? <Loader></Loader> : '' }
                 {loading === false && authUser === null ? <Signup triggerSignup={handleSignUp} triggerSignIn={handleSignIn}></Signup> : ''  }
                 <Signout></Signout>
