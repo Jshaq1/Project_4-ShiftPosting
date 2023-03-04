@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/Project_4-ShiftPosting/static/css/main.9a0eaa5c.css",
+    "main.js": "/Project_4-ShiftPosting/static/js/main.acbccb0f.js",
+    "static/js/227.c06375c3.chunk.js": "/Project_4-ShiftPosting/static/js/227.c06375c3.chunk.js",
+    "static/js/526.343f4e8a.chunk.js": "/Project_4-ShiftPosting/static/js/526.343f4e8a.chunk.js",
+    "static/js/232.0558c393.chunk.js": "/Project_4-ShiftPosting/static/js/232.0558c393.chunk.js",
+    "static/js/237.82d6026c.chunk.js": "/Project_4-ShiftPosting/static/js/237.82d6026c.chunk.js",
+    "static/js/787.fe15ca9f.chunk.js": "/Project_4-ShiftPosting/static/js/787.fe15ca9f.chunk.js",
+    "static/media/bidenbold-regular-webfont.woff": "/Project_4-ShiftPosting/static/media/bidenbold-regular-webfont.3c8aa136436d5832e3e1.woff",
+    "index.html": "/Project_4-ShiftPosting/index.html",
+    "main.9a0eaa5c.css.map": "/Project_4-ShiftPosting/static/css/main.9a0eaa5c.css.map",
+    "main.acbccb0f.js.map": "/Project_4-ShiftPosting/static/js/main.acbccb0f.js.map",
+    "227.c06375c3.chunk.js.map": "/Project_4-ShiftPosting/static/js/227.c06375c3.chunk.js.map",
+    "526.343f4e8a.chunk.js.map": "/Project_4-ShiftPosting/static/js/526.343f4e8a.chunk.js.map",
+    "232.0558c393.chunk.js.map": "/Project_4-ShiftPosting/static/js/232.0558c393.chunk.js.map",
+    "237.82d6026c.chunk.js.map": "/Project_4-ShiftPosting/static/js/237.82d6026c.chunk.js.map",
+    "787.fe15ca9f.chunk.js.map": "/Project_4-ShiftPosting/static/js/787.fe15ca9f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9a0eaa5c.css",
+    "static/js/main.acbccb0f.js"
+  ]
+}
