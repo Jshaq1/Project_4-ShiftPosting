@@ -5,7 +5,7 @@
   <p align="center">
     An interactive space for sales staff to manage commissions and communicate.
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://jshaq1.github.io/Project_4-ShiftPosting/undefined">View Demo</a>
     <br/>
   </p>
 </div>
@@ -33,7 +33,7 @@
 </details>
 
 ## About The Project
-![Home Page](shiftposting/public/Screenshot 2023-03-03 at 6.16.51 pm.png "Home Page")
+![Home Page](shiftposting/public/Screenshot 2023-03-03 at 6.16.51 pm.PNG "Home Page")
 
 Essentially JBHIFI where I currently work offer their sales people the chance to claim back commission they lose by discounting/pricematching items below a thresh-hold. The trouble is naturally they do not provide an automated way to keep track of this so its incumbant on the sales team to keep track and manage this manually. Currently there is no tool to calculate and keep record of commissions which makes this very difficult. 
 
