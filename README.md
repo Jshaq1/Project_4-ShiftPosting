@@ -33,10 +33,12 @@
 </details>
 
 ## About The Project
+<p>
+    <img src="./shiftposting/public/Screenshot%202023-03-03%20at%206.16.51%20pm.PNG?raw=true" width="100%" />
+    <img src="./shiftposting/public/Screenshot%202023-03-03%20at%206.17.29%20pm.PNG?raw=true" width="100%" />
+    <img src="./shiftposting/public/Screenshot%202023-03-03%20at%206.17.15%20pm.PNG?raw=true" width="100%" />
+</p>
 
-![Screenshot of project](./shiftposting/public/Screenshot%202023-03-03%20at%206.16.51%20pm.PNG?raw=true"HUE")
-![Screenshot of project](./shiftposting/public/Screenshot%202023-03-03%20at%206.17.29%20pm.PNG?raw=true"HUE")
-![Screenshot of project](./shiftposting/public/Screenshot%202023-03-03%20at%206.17.15%20pm.PNG?raw=true"HUE")
 
 Essentially JBHIFI where I currently work offer their sales people the chance to claim back commission they lose by discounting/pricematching items below a thresh-hold. The trouble is naturally they do not provide an automated way to keep track of this so its incumbant on the sales team to keep track and manage this manually. Currently there is no tool to calculate and keep record of commissions which makes this very difficult. 
 
