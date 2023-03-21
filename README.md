@@ -5,7 +5,7 @@
   <p align="center">
     An interactive space for sales staff to manage commissions and communicate.
     <br />
-    <a href="https://jshaq1.github.io/Project_4-ShiftPosting/undefined">View Demo</a>
+    <a href="https://jshaq1.github.io/Project_4-ShiftPosting">View Demo</a>
     <br/>
   </p>
 </div>
