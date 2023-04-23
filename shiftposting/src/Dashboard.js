@@ -11,7 +11,7 @@ import Loader from './UserAuth/Loader';
 import Signout from './UserAuth/Signout'
 import ChatUI from './chat/ChatUi';
 import Homepage from './Homepage';
-import UnderDev from './underDev/UnderDev';
+
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 
