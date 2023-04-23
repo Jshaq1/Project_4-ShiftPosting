@@ -191,6 +191,20 @@ input {
 	padding: 10px;
 }
 
+.guest{
+	border: none;
+	background: none;
+	padding: 10px;
+}
+.guest span{
+	text-decoration: underline;
+	color: purple;
+}
+.guest span:hover{
+	color: rgb(155, 2, 155);
+}
+
+
 @keyframes show {
 	0%, 49.99% {
 		opacity: 0;

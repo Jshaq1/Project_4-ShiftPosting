@@ -6,27 +6,27 @@ import '../css/login-modal.css'
 
 
 
-export default function Signup({triggerSignup, triggerSignIn}) {
+export default function Signup({ triggerSignup, triggerSignIn }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [displayName, setdisplayName] = useState('')
-  const [error, setError] = useState('')
+  const [error, setStatusMessage] = useState('')
 
 
 
   const validatePassword = () => {
-      if (password !== confirmPassword) {
-        setError('Passwords do not match')
-        return false
-      }
+    if (password !== confirmPassword) {
+      setStatusMessage('Passwords do not match')
+      return false
+    }
     return true
   }
 
 
   const formView = (e) => {
     const container = document.getElementById('container')
-    setError('')
+    setStatusMessage('')
     if (e.target.id === 'signUp') {
       setPassword('')
       container.classList.add('right-panel-active')
@@ -37,16 +37,16 @@ export default function Signup({triggerSignup, triggerSignIn}) {
     }
   }
 
-  const handleSignIn = (e) => {
+  const handleGuestSignIn = (e) => {
     e.preventDefault()
-    setError('Logging in...')
-    triggerSignIn(auth, email, password)
-    .then(() => {
-      setError('Success')
-    })
-    .catch((error) => {
-        if (error.code === 'auth/user-not-found'){
-          setError('User does not exist')
+    setStatusMessage('Logging in...')
+    triggerSignIn(auth, 'guest@gmail.com', 'Guest1234')
+      .then(() => {
+        setStatusMessage('Success')
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          setStatusMessage('User does not exist')
           setPassword('')
           const container = document.getElementById('container')
           container.classList.add('right-panel-active')
@@ -55,23 +55,41 @@ export default function Signup({triggerSignup, triggerSignIn}) {
       })
   }
 
-  
+  const handleSignIn = (e) => {
+    e.preventDefault()
+    setStatusMessage('Logging in...')
+    triggerSignIn(auth, email, password)
+      .then(() => {
+        setStatusMessage('Success')
+      })
+      .catch((error) => {
+        if (error.code === 'auth/user-not-found') {
+          setStatusMessage('User does not exist')
+          setPassword('')
+          const container = document.getElementById('container')
+          container.classList.add('right-panel-active')
+
+        }
+      })
+  }
+
+
 
   const handleSignUp = (e) => {
     e.preventDefault()
-    setError('')
+    setStatusMessage('')
     if (validatePassword()) {
       triggerSignup(auth, email, password, displayName)
         .then(() => {
-          setError('Success')
+          setStatusMessage('Success')
         })
         .catch((error) => {
-         
+
           if (error.code === 'auth/email-already-in-use') {
-            setError('Email already in use')
+            setStatusMessage('Email already in use')
           }
         })
-    } else { setError('Passwords do not match') }
+    } else { setStatusMessage('Passwords do not match') }
   }
 
 
@@ -99,14 +117,17 @@ export default function Signup({triggerSignup, triggerSignIn}) {
             <input type="password" data-testid='password' placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
             <section data-testid='errors' id="login-errors">{error ? error : ''}</section>
             <button data-testid='Sign In' className="login-button">Sign In</button>
+            <button type='button' onClick={handleGuestSignIn} className='guest'>Sign in as <span>Guest</span></button>
           </form>
+
+
         </div>
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
               <h1 className="login-title">Welcome Back!</h1>
               <p className="login-desc">You can never leave</p>
-              <button  className="login-button outlined" data-testid='Sign-In' id="signIn" onClick={formView}>Sign In</button>
+              <button className="login-button outlined" data-testid='Sign-In' id="signIn" onClick={formView}>Sign In</button>
             </div>
             <div className="overlay-panel overlay-right">
               <h1 className="login-title">Hello, Friend!</h1>
