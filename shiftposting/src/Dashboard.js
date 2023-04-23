@@ -11,6 +11,7 @@ import Loader from './UserAuth/Loader';
 import Signout from './UserAuth/Signout'
 import ChatUI from './chat/ChatUi';
 import Homepage from './Homepage';
+import UnderDev from './underDev/UnderDev';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 
@@ -66,11 +67,11 @@ function Dashboard(props) {
                 
                 <NavLink className='body' to={navState}>
                     <Spline className='spline-scene' scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode' onMouseDown={mouseClick} />
-                    
                 </NavLink>
                 <Routes>
                     <Route path='/calculator' element={<CommissionUI userCredentials={authUser} onClick={mouseClick}/>} />
                     <Route path='/chat' element={<ChatUI onClick={mouseClick} userCredentials={authUser} ></ChatUI>}/>
+                    <Route path='/underDev' element={<UnderDev></UnderDev>}/>
                 </Routes>
 
         </BrowserRouter>

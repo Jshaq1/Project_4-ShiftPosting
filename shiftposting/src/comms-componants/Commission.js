@@ -130,7 +130,7 @@ export default function CommissionUI(props) {
 
         <div className="main">
 
-            <div className='commsCalc' name='/' >
+            <div className='commsCalc' >
                 <NavLink to={'/'}><HomeIcon name='/' onClick={props.onClick} color="primary" sx={{ fontSize: 60 }} className='home-btn'></HomeIcon></NavLink>
                 <CommsCalc
                     ticket={ticket}
@@ -143,19 +143,19 @@ export default function CommissionUI(props) {
                     claimed={claimed}
                     onChange={onInputChange}
                     onSubmit={handleSubmitCalc} />
-
-
                 <div>
                     <CommHistory data={tableData} onClick={deleteCalc} />
                 </div>
 
             </div>
+            
 
 
 
 
 
         </div>
+        
 
     )
 }
