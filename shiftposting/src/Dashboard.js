@@ -71,7 +71,6 @@ function Dashboard(props) {
                 <Routes>
                     <Route path='/calculator' element={<CommissionUI userCredentials={authUser} onClick={mouseClick}/>} />
                     <Route path='/chat' element={<ChatUI onClick={mouseClick} userCredentials={authUser} ></ChatUI>}/>
-                    <Route path='/underDev' element={<UnderDev></UnderDev>}/>
                 </Routes>
 
         </BrowserRouter>
