@@ -63,11 +63,17 @@ export default function Signup({ triggerSignup, triggerSignIn }) {
         setStatusMessage('Success')
       })
       .catch((error) => {
+        console.log(error)
         if (error.code === 'auth/user-not-found') {
           setStatusMessage('User does not exist')
           setPassword('')
           const container = document.getElementById('container')
           container.classList.add('right-panel-active')
+
+        }
+        if (error.code === 'auth/wrong-password') {
+          setStatusMessage('Incorrect Password')
+          setPassword('')
 
         }
       })
@@ -84,7 +90,6 @@ export default function Signup({ triggerSignup, triggerSignIn }) {
           setStatusMessage('Success')
         })
         .catch((error) => {
-
           if (error.code === 'auth/email-already-in-use') {
             setStatusMessage('Email already in use')
           }

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+@font-face {
+    font-family: 'biden_boldregular';
+    src: local('bidenbold'),
+         url('../fonts/bidenbold-regular-webfont.woff') format('woff');
+
+}
+/* *{
+    border: solid black 1px;
+} */
+
+li {
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    margin-right: 18%;
+    margin-left: 18%;
+    margin-top: 10px;
+    left: 0%;
+    text-align: center;
+    justify-content: space-between;
+    border: 3px solid white;
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: 10%;
+    width:60%;
+    color: rgba(255, 168, 102, 0.719);
+}
+
+.logo {
+    font-family: 'biden_boldregular';
+    font-size: 25px;
+}
+
+.nav-links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    justify-content: space-evenly;
+    width: fit-content;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
