@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react'
 import CommissionUI from './comms-componants/Commission'
 import './css/dash.css'
 import './css/Loader.css'
+import './css/navbar.css'
 import { Routes, Route, BrowserRouter, NavLink } from 'react-router-dom';
 import Spline from '@splinetool/react-spline';
-import { onAuthStateChanged} from 'firebase/auth'
+import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase'
 import Signup from './UserAuth/Signup';
 import Loader from './UserAuth/Loader';
 import Signout from './UserAuth/Signout'
 import ChatUI from './chat/ChatUi';
 import Homepage from './Homepage';
+import Navbar from './nav/Navbar';
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
@@ -33,16 +35,23 @@ function Dashboard(props) {
             } else {
                 setAuthUser(null)
             }
-            
             return () => {
                 listen()
-            }})
+            }
+        })
     }, [])
 
- 
-   
+
+
     const mouseClick = (e) => {
-        setnavState('./' + e.target.name)   
+        if (e.target.tagName == 'LI') {
+            let newNavState = e.target.getAttribute('name')
+            console.log(e)
+            return setnavState(`/${newNavState}`)
+
+        }
+        console.log(e.target)
+        return setnavState('/' + e.target.name)
     }
 
     const handleSignIn = (auth, email, password) => {
@@ -51,28 +60,27 @@ function Dashboard(props) {
 
     const handleSignUp = (auth, email, password, displayName) => {
         return createUserWithEmailAndPassword(auth, email, password)
-        .then(response => {
-          updateProfile(auth.currentUser, {
-            displayName: displayName
-          })
-          
-        })}
-     
+            .then(response => {
+                updateProfile(auth.currentUser, {
+                    displayName: displayName
+                })
+
+            })
+    }
+
     return (
         <BrowserRouter basename='Project_4-ShiftPosting'>
-                {loading === true ? <Loader></Loader> : '' }
-                {loading === false && authUser === null ? <Signup triggerSignup={handleSignUp} triggerSignIn={handleSignIn}></Signup> : ''  }
-                <Signout></Signout>
-                <Homepage displayName={displayName}></Homepage>
-                
-                <NavLink className='body' to={navState}>
-                    <Spline className='spline-scene' scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode' onMouseDown={mouseClick} />
-                </NavLink>
-                <Routes>
-                    <Route path='/calculator' element={<CommissionUI userCredentials={authUser} onClick={mouseClick}/>} />
-                    <Route path='/chat' element={<ChatUI onClick={mouseClick} userCredentials={authUser} ></ChatUI>}/>
-                </Routes>
-
+            {loading === true ? <Loader></Loader> : ''}
+            {loading === false && authUser === null ? <Signup triggerSignup={handleSignUp} triggerSignIn={handleSignIn}></Signup> : ''}
+            <Signout></Signout>
+            <NavLink className='body' to={navState}>
+                {/* <Navbar displayName={displayName} onClick={mouseClick}></Navbar> */}
+                <Spline className='spline-scene' scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode' onMouseDown={mouseClick} />
+            </NavLink>
+            <Routes>
+                <Route path='/calculator' element={<CommissionUI userCredentials={authUser} onClick={mouseClick} />} />
+                <Route path='/chat' element={<ChatUI onClick={mouseClick} userCredentials={authUser} ></ChatUI>} />
+            </Routes>
         </BrowserRouter>
     )
 }
