@@ -1,85 +1,51 @@
-import { useState, useEffect } from 'react'
-import CommissionUI from './comms-componants/Commission'
-import './css/dash.css'
-import './css/Loader.css'
-import './css/navbar.css'
-import { Routes, Route, BrowserRouter, NavLink } from 'react-router-dom';
-import Spline from '@splinetool/react-spline';
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from './firebase'
-import Signup from './UserAuth/Signup';
-import Loader from './UserAuth/Loader';
-import Signout from './UserAuth/Signout'
-import ChatUI from './chat/ChatUi';
-import Homepage from './Homepage';
-import Navbar from './nav/Navbar';
+import { useState } from 'react'
+import { Routes, Route, BrowserRouter, NavLink } from 'react-router-dom'
+import Spline from '@splinetool/react-spline'
+import useAuthentication from './userAuth/UseAuthentication'
+import Signup from './userAuth/Signup'
+import Loader from './userAuth/Loader'
+import Signout from './userAuth/Signout'
+import ChatUI from './components/chat/ChatUi'
+import CommissionUI from './components/comissionsUI/Commission'
+import Homepage from './Homepage'
+import Navbar from './components/nav/navbar'
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
+const Dashboard = () => {
+    const [navState, setNavState] = useState('')
+    const { authUser, loading } = useAuthentication()
 
-
-function Dashboard(props) {
-    const [navState, setnavState] = useState('')
-    const [authUser, setAuthUser] = useState(null)
-    const [displayName, setDisplayName] = useState()
-    const [loading, setLoading] = useState(false)
-
-    useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 1500)
-        const listen = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setAuthUser(user.email)
-                setDisplayName(user.displayName)
-            } else {
-                setAuthUser(null)
-            }
-            return () => {
-                listen()
-            }
-        })
-    }, [])
-
-
-
-    const mouseClick = (e) => {
-        if (e.target.tagName == 'LI') {
-            let newNavState = e.target.getAttribute('name')
-            console.log(e)
-            return setnavState(`/${newNavState}`)
-
-        }
-        console.log(e.target)
-        return setnavState('/' + e.target.name)
+    const onNavClick = (e) => {
+        const newNavState = e.target.name
+        setNavState(`/${newNavState}`)
     }
 
-    const handleSignIn = (auth, email, password) => {
-        return signInWithEmailAndPassword(auth, email, password)
+    if (loading) {
+        return <Loader />
     }
 
-    const handleSignUp = (auth, email, password, displayName) => {
-        return createUserWithEmailAndPassword(auth, email, password)
-            .then(response => {
-                updateProfile(auth.currentUser, {
-                    displayName: displayName
-                })
-
-            })
+    if (!authUser) {
+        return <Signup />
     }
 
     return (
-        <BrowserRouter basename='Project_4-ShiftPosting'>
-            {loading === true ? <Loader></Loader> : ''}
-            {loading === false && authUser === null ? <Signup triggerSignup={handleSignUp} triggerSignIn={handleSignIn}></Signup> : ''}
-            <Signout></Signout>
+        <BrowserRouter basename='/'>
+            <Navbar />
             <NavLink className='body' to={navState}>
-                {/* <Navbar displayName={displayName} onClick={mouseClick}></Navbar> */}
-                <Spline className='spline-scene' scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode' onMouseDown={mouseClick} />
+                <Spline
+                    className='spline-scene'
+                    scene='https://prod.spline.design/qStMuDPEJmy-irik/scene.splinecode'
+                    onMouseDown={onNavClick}
+                />
             </NavLink>
             <Routes>
-                <Route path='/calculator' element={<CommissionUI userCredentials={authUser} onClick={mouseClick} />} />
-                <Route path='/chat' element={<ChatUI onClick={mouseClick} userCredentials={authUser} ></ChatUI>} />
+                <Route
+                    path='/calculator'
+                    element={<CommissionUI userCredentials={authUser} onClick={onNavClick} />}
+                />
+                <Route
+                    path='/chat'
+                    element={<ChatUI onClick={onNavClick} />}
+                />
             </Routes>
         </BrowserRouter>
     )

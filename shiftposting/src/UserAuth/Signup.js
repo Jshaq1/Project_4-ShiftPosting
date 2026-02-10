@@ -1,21 +1,43 @@
-import React from 'react'
-import { useState } from 'react';
-import { auth } from '../firebase';
+import { useState } from 'react'
+import { auth } from '../firebase'
 import '../css/login-modal.css'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
+const getAuthErrorMessage = (errorCode) => {
+  switch (errorCode) {
+    case 'auth/user-not-found':
+      return 'User does not exist'
+    case 'auth/wrong-password':
+    case 'auth/invalid-credential':
+      return 'Incorrect email or password'
+    case 'auth/invalid-email':
+      return 'Invalid email address'
+    case 'auth/too-many-requests':
+      return 'Too many attempts. Please try again later.'
+    case 'auth/email-already-in-use':
+      return 'Email already in use'
+    case 'auth/weak-password':
+      return 'Password is too weak'
+    default:
+      return 'Something went wrong. Please try again.'
+  }
+}
 
-
-
-export default function Signup({ triggerSignup, triggerSignIn }) {
+const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [displayName, setdisplayName] = useState('')
-  const [error, setStatusMessage] = useState('')
-
-
+  const [displayName, setDisplayName] = useState('')
+  const [statusMessage, setStatusMessage] = useState('')
+  const [isSignUp, setIsSignUp] = useState(false)
 
   const validatePassword = () => {
+    const passWordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/
+    if (!passWordReg.test(password)) {
+      setStatusMessage('Password must be at least 6 characters with uppercase, lowercase, and a number')
+      return false
+    }
     if (password !== confirmPassword) {
       setStatusMessage('Passwords do not match')
       return false
@@ -23,95 +45,67 @@ export default function Signup({ triggerSignup, triggerSignIn }) {
     return true
   }
 
-
   const formView = (e) => {
-    const container = document.getElementById('container')
     setStatusMessage('')
-    if (e.target.id === 'signUp') {
-      setPassword('')
-      container.classList.add('right-panel-active')
-    }
-    if (e.target.id === 'signIn') {
-      setPassword('')
-      container.classList.remove('right-panel-active')
-    }
+    setPassword('')
+    setIsSignUp(e.target.id === 'signUp')
   }
 
   const handleGuestSignIn = (e) => {
     e.preventDefault()
+    setIsLoading(true)
     setStatusMessage('Logging in...')
-    triggerSignIn(auth, 'guest@gmail.com', 'Guest1234')
+    signInWithEmailAndPassword(auth, process.env.REACT_APP_GUEST_EMAIL, process.env.REACT_APP_GUEST_PASSWORD)
       .then(() => {
         setStatusMessage('Success')
       })
       .catch((error) => {
-        if (error.code === 'auth/user-not-found') {
-          setStatusMessage('User does not exist')
-          setPassword('')
-          const container = document.getElementById('container')
-          container.classList.add('right-panel-active')
-
-        }
+        setStatusMessage(getAuthErrorMessage(error.code))
       })
   }
 
   const handleSignIn = (e) => {
     e.preventDefault()
     setStatusMessage('Logging in...')
-    triggerSignIn(auth, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then(() => {
         setStatusMessage('Success')
       })
       .catch((error) => {
-        console.log(error)
-        if (error.code === 'auth/user-not-found') {
-          setStatusMessage('User does not exist')
-          setPassword('')
-          const container = document.getElementById('container')
-          container.classList.add('right-panel-active')
-
-        }
-        if (error.code === 'auth/wrong-password') {
-          setStatusMessage('Incorrect Password')
-          setPassword('')
-
-        }
+        setStatusMessage(getAuthErrorMessage(error.code))
+        if (error.code === 'auth/user-not-found') setIsSignUp(true)
+        if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') setPassword('')
       })
   }
-
-
 
   const handleSignUp = (e) => {
     e.preventDefault()
     setStatusMessage('')
-    if (validatePassword()) {
-      triggerSignup(auth, email, password, displayName)
-        .then(() => {
-          setStatusMessage('Success')
-        })
-        .catch((error) => {
-          if (error.code === 'auth/email-already-in-use') {
-            setStatusMessage('Email already in use')
-          }
-        })
-    } else { setStatusMessage('Passwords do not match') }
+    if (!validatePassword()) return
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((response) => {
+        return updateProfile(response.user, { displayName })
+      })
+      .then(() => {
+        setStatusMessage('Success')
+      })
+      .catch((error) => {
+        setStatusMessage(getAuthErrorMessage(error.code))
+      })
   }
-
-
-
-
 
   return (
     <div id="modal-container">
-      <div className="login-container" id="container" data-testid='container'>
+      <div className={`login-container${isSignUp ? ' right-panel-active' : ''}`} data-testid='container'>
         <div className="form-container sign-up-container">
           <form data-testid='loginForm' className="login-form" id="signup" onSubmit={handleSignUp}>
             <h1 className="login-title">Create Account</h1>
             <input data-testid='SignUp-email' type="email" placeholder="Email" required value={email} onChange={e => setEmail(e.target.value)} />
-            <input data-testid='SignUp-name' type="displayName" placeholder="User Name" required value={displayName} onChange={e => setdisplayName(e.target.value)} />
+            <input data-testid='SignUp-name' type="text" placeholder="User Name" required value={displayName} onChange={e => setDisplayName(e.target.value)} />
             <input data-testid='SignUp-password' type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-            <input data-testid='SignUp-confirm' type="password" placeholder="Confirm-Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
-            <section id="login-errors">{error ? error : ''}</section>
+            <input data-testid='SignUp-confirm' type="password" placeholder="Confirm Password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required />
+            <section id="login-errors" className={statusMessage === 'Success' ? 'success' : ''} role="alert">{statusMessage}</section>
             <button data-testid='Sign Up' className="login-button">Sign Up</button>
           </form>
         </div>
@@ -120,12 +114,10 @@ export default function Signup({ triggerSignup, triggerSignIn }) {
             <h1 className="login-title">Sign in</h1>
             <input type="email" data-testid='email' placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
             <input type="password" data-testid='password' placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
-            <section data-testid='errors' id="login-errors">{error ? error : ''}</section>
+            <section data-testid='errors' id="login-errors" className={(statusMessage === 'Success' || isLoading) ? 'success' : ''} role="alert">{statusMessage}</section>
             <button data-testid='Sign In' className="login-button">Sign In</button>
             <button type='button' onClick={handleGuestSignIn} className='guest'>Sign in as <span>Guest</span></button>
           </form>
-
-
         </div>
         <div className="overlay-container">
           <div className="overlay">
@@ -142,5 +134,8 @@ export default function Signup({ triggerSignup, triggerSignIn }) {
           </div>
         </div>
       </div>
-    </div>)
+    </div>
+  )
 }
+
+export default Signup

@@ -51,8 +51,9 @@ button:active {
 	transform: scale(0.95);
 }
 
-button:focus {
-	outline: none;
+button:focus-visible {
+	outline: 2px solid #c387ff;
+	outline-offset: 2px;
 }
 
 button.outlined {
@@ -189,7 +190,12 @@ input {
 
 #login-errors{
 	padding: 10px;
-	color: red;
+	font-size: 14px;
+	color: #d32f2f;
+}
+
+#login-errors.success{
+	color: #2e7d32;
 }
 
 .guest{
